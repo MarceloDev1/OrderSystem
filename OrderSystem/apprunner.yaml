@@ -1,6 +1,6 @@
-version 1.0
-runtime docker
-build
-  dockerfile OrderSystemDockerfile
-  context .
-port 8080
+version: 1.0
+runtime: docker
+build:
+  dockerfile: Dockerfile
+  context: .
+port: 8080
