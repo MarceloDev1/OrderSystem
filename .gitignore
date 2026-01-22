@@ -53,3 +53,11 @@ marce@LAPTOP-84PPAT8A MINGW64 ~/OneDrive/Desktop/C#/OrderSystem (main)
 *.dll
 /OrderSystem/bin/Debug/net8.0/OrderSystem.pdb
 /OrderSystem/obj/Release/net8.0/PubTmp/Out/runtimes/win-x64/native/librdkafkacpp.dll
+/.vs/OrderSystem
+/OrderSystem/bin/Release/net8.0
+/OrderSystem/obj/Debug/net8.0/OrderSystem.AssemblyInfo.cs
+/OrderWorkerService/obj/Debug/net8.0/OrderWorkerService.assets.cache
+/OrderWorkerService/obj/Debug/net8.0/OrderWorkerService.AssemblyInfo.cs
+/OrderWorkerService/obj/Debug/net8.0/OrderWorkerService.AssemblyInfoInputs.cache
+/OrderSystem/obj/Debug/net8.0/OrderSystem.AssemblyInfoInputs.cache
+/OrderSystem/obj/Debug/net8.0/OrderSystem.assets.cache
