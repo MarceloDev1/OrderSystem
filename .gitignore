@@ -48,3 +48,8 @@ error: src refspec main does not match any
 error: failed to push some refs to 'https://github.com/MarceloDev1/OrderSystem.git'
 
 marce@LAPTOP-84PPAT8A MINGW64 ~/OneDrive/Desktop/C#/OrderSystem (main)
+/OrderSystem/bin/Debug/net8.0/cs/Microsoft.Data.SqlClient.resources.dll
+/OrderSystem/bin/Debug/net8.0/de/Microsoft.Data.SqlClient.resources.dll
+*.dll
+/OrderSystem/bin/Debug/net8.0/OrderSystem.pdb
+/OrderSystem/obj/Release/net8.0/PubTmp/Out/runtimes/win-x64/native/librdkafkacpp.dll

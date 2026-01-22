@@ -1,4 +1,6 @@
 using Confluent.Kafka;
+using OrderSystem.Data;
+using OrderSystem.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,10 @@ builder.Services.AddSingleton<IProducer<string, string>>(sp =>
 
     return new ProducerBuilder<string, string>(config).Build();
 });
+
+builder.Services.AddSingleton<IConnectionFactory, SqlConnectionFactory>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 

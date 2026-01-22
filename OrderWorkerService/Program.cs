@@ -1,10 +1,16 @@
 using OrderWorkerService;
+using OrderWorkerService.Consumers;
+using OrderWorkerService.Data;
+using OrderWorkerService.Repositories;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
-    {
-        services.AddHostedService<Worker>();
-    })
-    .Build();
+var builder = Host.CreateApplicationBuilder(args);
 
-await host.RunAsync();
+// DI
+builder.Services.AddSingleton<IConnectionFactory, SqlConnectionFactory>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+builder.Services.AddSingleton<OrderCreatedConsumer>();
+builder.Services.AddHostedService<Worker>();
+
+var host = builder.Build();
+host.Run();

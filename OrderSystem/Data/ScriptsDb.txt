@@ -1,0 +1,16 @@
+﻿CREATE TABLE Products (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(120) NOT NULL
+);
+
+CREATE TABLE Orders (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    ProductId INT NOT NULL,
+    Quantity INT NOT NULL,
+    Status NVARCHAR(30) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL,
+    CONSTRAINT FK_Orders_Products FOREIGN KEY (ProductId) REFERENCES Products(Id)
+);
+
+-- Seed básico
+INSERT INTO Products (Name) VALUES ('Coca-Cola 350ml'), ('Pão de queijo'), ('Hambúrguer');
