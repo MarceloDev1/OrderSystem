@@ -1,6 +1,8 @@
 ﻿using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using OrderSystem.Repositories;
+using OrderSystem.Models;
 
 namespace OrderSystem.Controllers;
 
@@ -10,34 +12,52 @@ public class OrdersController : ControllerBase
 {
     private readonly IProducer<string, string> _producer;
     private readonly IConfiguration _configuration;
+    private readonly IOrderRepository _orders;
 
     public OrdersController(
         IProducer<string, string> producer,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        IOrderRepository orders)
     {
         _producer = producer;
         _configuration = configuration;
+        _orders = orders;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request, CancellationToken ct)
     {
-        var orderEvent = new
+        var orderId = Guid.NewGuid();
+
+        // 1) grava no banco
+        var order = new Order
         {
-            OrderId = Guid.NewGuid(),
-            request.ProductId,
-            request.Quantity,
+            Id = orderId,
+            ProductId = request.ProductId,
+            Quantity = request.Quantity,
+            Status = "Created",
             CreatedAt = DateTime.UtcNow
         };
 
-        var topic = _configuration["Kafka:OrdersTopic"];
+        await _orders.CreateAsync(order);
+
+        // 2) publica no kafka
+        var orderEvent = new
+        {
+            OrderId = orderId,
+            request.ProductId,
+            request.Quantity,
+            CreatedAt = order.CreatedAt
+        };
+
+        var topic = _configuration["Kafka:OrdersTopic"] ?? "orders.created";
         var message = new Message<string, string>
         {
             Key = orderEvent.OrderId.ToString(),
             Value = JsonSerializer.Serialize(orderEvent)
         };
 
-        await _producer.ProduceAsync(topic, message);
+        await _producer.ProduceAsync(topic, message, ct);
 
         return Created("", orderEvent);
     }
