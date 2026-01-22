@@ -6,6 +6,8 @@ OrderSystem é um sistema de gerenciamento de pedidos desenvolvido em C# utiliza
 
 O sistema é composto por dois principais componentes:
 
+<img width="386" height="820" alt="image" src="https://github.com/user-attachments/assets/ebc775ff-a40a-4eeb-b52d-dd904b836f5d" />
+
 - **OrderSystem**: API RESTful construída com ASP.NET Core, responsável por gerenciar produtos, pedidos e autenticação de usuários.
 - **OrderWorkerService**: Serviço de worker que consome eventos de criação de pedidos via Kafka e processa-os de forma assíncrona.
 
@@ -78,14 +80,6 @@ dotnet build
 dotnet run
 ```
 
-### 6. Testes
-
-Para executar os testes (se houver):
-
-```bash
-dotnet test
-```
-
 ## Endpoints da API
 
 A API OrderSystem expõe os seguintes endpoints principais:
@@ -120,13 +114,20 @@ OrderSystem/
 ├── Models/               # Modelos de dados (Order, Product)
 ├── Repositories/         # Repositórios para acesso a dados
 └── Contracts/            # Contratos de eventos
-
+|
 OrderWorkerService/
 ├── Consumers/            # Consumidor de eventos Kafka
 ├── Data/                 # Fábricas de conexão
 ├── Repositories/         # Repositórios
 └── Contracts/            # Contratos de eventos
+│
+├── docker-compose.yml             # Orquestração de containers
+├── .gitignore                     # Arquivos ignorados pelo Git
+└── README.md                      # Documentação do projeto
+
 ```
+## ⚙️ Fluxo de Processamento
+<img width="1726" height="608" alt="image" src="https://github.com/user-attachments/assets/8a77f3a7-be97-4d32-935c-431b379b1253" />
 
 ## Banco de Dados
 
